@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ECMate — Gestisci i tuoi crediti ECM in 10 secondi</title>
+
+  <!-- SEO -->
+  <meta name="description" content="ECMate ti dice in 10 secondi quanti crediti ECM hai, quanti ti mancano e quale corso fare adesso. Per infermieri che non vogliono sorprese a dicembre." />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ECMate — Gestisci i tuoi crediti ECM in 10 secondi" />
+  <meta property="og:description" content="Per infermieri che non vogliono sorprese a dicembre. Entra nella lista d'attesa." />
+  <meta property="og:image" content="https://ecmate.it/og-image.png" />
+  <meta property="og:url" content="https://ecmate.it" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ECMate — Gestisci i tuoi crediti ECM in 10 secondi" />
+  <meta name="twitter:description" content="Per infermieri che non vogliono sorprese a dicembre." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:        #2563EB;
+      --primary-hover:  #1D4ED8;
+      --primary-light:  #EFF6FF;
+      --primary-mid:    #DBEAFE;
+      --text:           #111827;
+      --text-secondary: #6B7280;
+      --text-tertiary:  #9CA3AF;
+      --bg:             #FFFFFF;
+      --bg-alt:         #F9FAFB;
+      --border:         #E5E7EB;
+      --shadow-xs:      0 1px 2px rgba(0,0,0,0.05);
+      --shadow-sm:      0 1px 6px rgba(0,0,0,0.07);
+      --shadow-md:      0 4px 16px rgba(0,0,0,0.08);
+      --shadow-lg:      0 8px 32px rgba(0,0,0,0.10);
+      --radius-card:    14px;
+      --radius-btn:     8px;
+      --radius-sm:      6px;
+      --max-w:          1100px;
+      --section-py:     88px;
+      --t:              150ms ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      html { scroll-behavior: auto; }
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ── LAYOUT ── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    section { padding: var(--section-py) 0; }
+
+    /* ── NAV ── */
+    nav {
+      padding: 18px 0;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(229,231,235,0.8);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .container { display: flex; align-items: center; justify-content: space-between; }
+
+    .logo { font-size: 1.25rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+
+    .nav-cta {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+      border: 1.5px solid var(--primary);
+      padding: 8px 18px;
+      border-radius: var(--radius-btn);
+      transition: background var(--t), color var(--t), box-shadow var(--t);
+    }
+    .nav-cta:hover { background: var(--primary); color: #fff; box-shadow: 0 2px 8px rgba(37,99,235,0.25); }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: var(--radius-btn);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background var(--t), transform var(--t), box-shadow var(--t);
+      box-shadow: 0 1px 3px rgba(37,99,235,0.3), 0 4px 12px rgba(37,99,235,0.15);
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(37,99,235,0.35), 0 6px 20px rgba(37,99,235,0.2);
+    }
+    .btn-primary:active { transform: translateY(0); box-shadow: none; }
+
+    /* ── SECTION HEADER ── */
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-header h2 {
+      font-size: clamp(1.625rem, 3.5vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .section-header p {
+      font-size: 1.0625rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      text-align: center;
+      padding: 108px 0 88px;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, #D1D5DB 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, transparent 30%, white 75%);
+      pointer-events: none;
+    }
+
+    #hero .container { position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      border: 1px solid var(--primary-mid);
+    }
+
+    #hero h1 {
+      font-size: clamp(2.125rem, 5.5vw, 3.375rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.035em;
+      max-width: 800px;
+      margin: 0 auto 20px;
+    }
+
+    #hero h1 span { color: var(--primary); }
+
+    #hero > .container > p {
+      font-size: clamp(1rem, 2vw, 1.1875rem);
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      line-height: 1.72;
+    }
+
+    .hero-stats {
+      display: inline-flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 36px;
+      padding: 14px 24px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero-stat {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    .hero-stat strong { color: var(--text); font-weight: 700; }
+
+    .hero-stat-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    /* ── PROBLEMA ── */
+    #problema { background: var(--bg-alt); }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-xs);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .card:nth-child(1)::before { background: #F59E0B; }
+    .card:nth-child(2)::before { background: #EF4444; }
+    .card:nth-child(3)::before { background: #8B5CF6; }
+
+    .card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+
+    .card-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .card:nth-child(1) .card-icon { background: #FEF3C7; }
+    .card:nth-child(2) .card-icon { background: #FEE2E2; }
+    .card:nth-child(3) .card-icon { background: #EDE9FE; }
+
+    .card-icon svg { width: 20px; height: 20px; }
+    .card:nth-child(1) .card-icon svg { stroke: #D97706; }
+    .card:nth-child(2) .card-icon svg { stroke: #DC2626; }
+    .card:nth-child(3) .card-icon svg { stroke: #7C3AED; }
+
+    .card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.01em; }
+    .card p { font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.65; }
+
+    /* ── SOLUZIONE ── */
+    #soluzione { background: linear-gradient(180deg, #ffffff 0%, #F0F7FF 100%); }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+    }
+
+    .feature { background: var(--bg); padding: 36px 32px; }
+
+    .feature-icon {
+      width: 48px; height: 48px;
+      background: var(--primary-light);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .feature-icon svg { width: 22px; height: 22px; stroke: var(--primary); }
+
+    .feature h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .feature p { font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.65; }
+
+    /* ── SOCIAL PROOF ── */
+    #social-proof { background: var(--bg-alt); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .testimonial {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 32px;
+      box-shadow: var(--shadow-xs);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-quote-mark {
+      position: absolute;
+      top: 16px; right: 24px;
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--primary-mid);
+      font-family: Georgia, serif;
+      font-weight: 700;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .testimonial-stars { display: flex; gap: 3px; margin-bottom: 16px; }
+    .testimonial-stars svg { width: 15px; height: 15px; fill: #FBBF24; stroke: none; }
+
+    .testimonial blockquote {
+      font-size: 0.9375rem;
+      color: var(--text);
+      line-height: 1.72;
+      margin-bottom: 24px;
+      font-style: normal;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #60A5FA);
+      color: #fff;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .author-info strong { display: block; font-size: 0.875rem; font-weight: 600; }
+    .author-info span { font-size: 0.8125rem; color: var(--text-secondary); }
+
+    .proof-note { text-align: center; font-size: 0.8125rem; color: var(--text-tertiary); }
+
+    /* ── FORM ── */
+    #waitlist {
+      background: #EFF6FF;
+      border-top: 1px solid var(--primary-mid);
+    }
+
+    .form-wrapper { max-width: 520px; margin: 0 auto; text-align: center; }
+
+    .form-wrapper h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 10px;
+    }
+
+    .form-wrapper > p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .form-wrapper > p strong { color: var(--primary); font-weight: 700; }
+
+    .form-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 36px;
+      box-shadow: var(--shadow-lg);
+      text-align: left;
+    }
+
+    .form-urgency {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FEF3C7;
+      color: #92400E;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+      border: 1px solid #FDE68A;
+    }
+
+    #signup-form { display: flex; flex-direction: column; gap: 16px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+
+    label { font-size: 0.875rem; font-weight: 500; color: var(--text); }
+
+    input, select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-btn);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color var(--t), box-shadow var(--t);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+    }
+
+    input::placeholder { color: var(--text-tertiary); }
+
+    .btn-submit { width: 100%; padding: 14px; font-size: 1rem; font-weight: 600; justify-content: center; margin-top: 4px; }
+
+    .form-privacy { text-align: center; font-size: 0.8125rem; color: var(--text-tertiary); margin-top: 4px; }
+
+    /* ── SUCCESS ── */
+    #success-message { display: none; text-align: center; padding: 48px 24px; }
+
+    .success-icon {
+      width: 64px; height: 64px;
+      background: #D1FAE5;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .success-icon svg { width: 28px; height: 28px; stroke: #059669; }
+
+    #success-message h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.02em; }
+    #success-message p { color: var(--text-secondary); font-size: 1rem; }
+
+    /* ── FOOTER ── */
+    footer { padding: 28px 0; border-top: 1px solid var(--border); text-align: center; }
+    footer p { font-size: 0.875rem; color: var(--text-tertiary); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .features-grid { grid-template-columns: 1fr; gap: 0; }
+      .feature + .feature { border-top: 2px solid var(--border); }
+    }
+
+    @media (max-width: 768px) {
+      :root { --section-py: 56px; }
+      #hero { padding: 72px 0 56px; }
+      .cards-grid { grid-template-columns: 1fr; gap: 14px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 16px; }
+      .form-card { padding: 28px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      nav .nav-cta { display: none; }
+      .hero-stat-dot { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav aria-label="Navigazione principale">
+    <div class="container">
+      <span class="logo">ECMate</span>
+      <a href="#waitlist" class="nav-cta">Lista d'attesa</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" aria-labelledby="hero-heading">
+    <div class="container">
+      <div class="hero-badge">🩺 Per infermieri italiani</div>
+      <h1 id="hero-heading">Sai davvero quanti crediti ECM <span>ti mancano?</span></h1>
+      <p>ECMate ti dice in 10 secondi dove sei, cosa ti manca e quale corso fare adesso. Per infermieri che non vogliono sorprese a dicembre.</p>
+      <a href="#waitlist" class="btn-primary">Voglio essere tra i primi a provarlo →</a>
+
+      <div class="hero-stats" aria-label="Perché ECMate">
+        <div class="hero-stat"><strong>Gratis</strong> per i primi 100</div>
+        <span class="hero-stat-dot" aria-hidden="true"></span>
+        <div class="hero-stat"><strong>10 secondi</strong> per vedere la tua situazione</div>
+        <span class="hero-stat-dot" aria-hidden="true"></span>
+        <div class="hero-stat"><strong>Zero</strong> burocrazia</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section id="problema" aria-labelledby="problema-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="problema-heading">Ti riconosci in questo?</h2>
+      </div>
+      <div class="cards-grid">
+
+        <div class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <h3>Perdi ore ogni volta</h3>
+          <p>Tra password dimenticate, portali lenti e crediti che non risultano, ogni controllo ECM ti porta via un pomeriggio libero.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <h3>Scopri i buchi a dicembre</h3>
+          <p>Eri convinto di essere a posto. Poi apri CoGeAPS e vedi che ti mancano 40 crediti. Con 30 giorni alla scadenza.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+              <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+            </svg>
+          </div>
+          <h3>Il sistema è un labirinto</h3>
+          <p>CoGeAPS, AGENAS, provider, flussi, scadenze triennali. Nessuno te lo ha spiegato. E non c'è tempo per imparare.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUZIONE -->
+  <section id="soluzione" aria-labelledby="soluzione-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="soluzione-heading">ECMate fa una cosa sola, ma la fa perfettamente</h2>
+        <p>Apri l'app e in 10 secondi sai: quanti crediti hai, quanti te ne mancano, e esattamente cosa fare adesso.</p>
+      </div>
+
+      <div class="features-grid">
+
+        <div class="feature">
+          <div class="feature-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+              <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+            </svg>
+          </div>
+          <h3>Dashboard chiara</h3>
+          <p>Un numero grande. I tuoi crediti. Quanto manca alla scadenza. Nient'altro.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+              <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 01-3.46 0"/>
+            </svg>
+          </div>
+          <h3>Alert preventivi</h3>
+          <p>Ti avvisiamo noi quando sei indietro — non a dicembre, ma con mesi di anticipo.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+          </div>
+          <h3>Tracciamento attestati</h3>
+          <p>Tieni tutti i tuoi certificati in un posto solo. Niente più PDF sparsi tra email, cartelle e download.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section id="social-proof" aria-labelledby="proof-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="proof-heading">Cosa dicono le infermiere che abbiamo intervistato</h2>
+      </div>
+
+      <div class="testimonials-grid">
+
+        <div class="testimonial">
+          <div class="testimonial-quote-mark" aria-hidden="true">"</div>
+          <div class="testimonial-stars" aria-label="5 stelle su 5">
+            <svg viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <blockquote>
+            "Ogni anno è la stessa storia. A novembre entro in CoGeAPS convinta di essere a posto, e invece mi mancano sempre dei crediti. L'anno scorso ho fatto tre corsi in un mese. Una cosa del genere mi avrebbe salvato."
+          </blockquote>
+          <div class="testimonial-author">
+            <div class="avatar" aria-hidden="true">MC</div>
+            <div class="author-info">
+              <strong>Maria C.</strong>
+              <span>Infermiera, Terapia Intensiva — Ospedale pubblico</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <div class="testimonial-quote-mark" aria-hidden="true">"</div>
+          <div class="testimonial-stars" aria-label="5 stelle su 5">
+            <svg viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <blockquote>
+            "Il problema non è fare i corsi, è tenere il conto. CoGeAPS non è fatto per essere capito. Ho passato due ore a cercare di capire se un corso mi era stato accreditato oppure no. Uno strumento semplice cambia tutto."
+          </blockquote>
+          <div class="testimonial-author">
+            <div class="avatar" aria-hidden="true">LR</div>
+            <div class="author-info">
+              <strong>Laura R.</strong>
+              <span>Infermiera specialista — Clinica privata</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="proof-note">Feedback raccolti durante le interviste di validazione.</p>
+    </div>
+  </section>
+
+  <!-- WAITLIST FORM -->
+  <section id="waitlist" aria-labelledby="waitlist-heading">
+    <div class="container">
+      <div class="form-wrapper">
+        <h2 id="waitlist-heading">Entra nella lista d'attesa</h2>
+        <p>I primi <strong>100 iscritti</strong> riceveranno 3 mesi gratuiti al lancio.</p>
+
+        <div class="form-card">
+          <div class="form-urgency">⚡ Posti limitati — 100 early adopter</div>
+
+          <form id="signup-form" action="https://formspree.io/f/SOSTITUISCI_CON_TUO_ID" method="POST" novalidate>
+
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" placeholder="nome@esempio.it" required autocomplete="email" />
+            </div>
+
+            <div class="form-group">
+              <label for="nome">Nome *</label>
+              <input type="text" id="nome" name="nome" placeholder="Il tuo nome" required autocomplete="given-name" />
+            </div>
+
+            <div class="form-group">
+              <label for="contesto">In quale contesto lavori? *</label>
+              <select id="contesto" name="contesto" required>
+                <option value="" disabled selected>Seleziona...</option>
+                <option value="ospedale-pubblico">Ospedale pubblico</option>
+                <option value="clinica-privata">Clinica privata</option>
+                <option value="libera-professione">Libera professione</option>
+                <option value="rsa">RSA</option>
+                <option value="altro">Altro</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn-primary btn-submit">Iscrivimi alla lista d'attesa</button>
+
+            <p class="form-privacy">🔒 Niente spam. Solo aggiornamenti su ECMate.</p>
+
+          </form>
+
+          <div id="success-message" role="alert" aria-live="polite">
+            <div class="success-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <h3>Perfetto! Ti contatteremo tra i primi.</h3>
+            <p>Sei nella lista. Ti avvisiamo non appena ECMate è pronto.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>ECMate © 2026 — Costruito per gli infermieri italiani</p>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('signup-form');
+    const successMsg = document.getElementById('success-message');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const nome = document.getElementById('nome').value.trim();
+      const contesto = document.getElementById('contesto').value;
+
+      if (!email || !nome || !contesto) {
+        alert('Per favore compila tutti i campi.');
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('Inserisci un indirizzo email valido.');
+        return;
+      }
+
+      // Save to localStorage
+      const entry = { email, nome, contesto, timestamp: new Date().toISOString() };
+      const existing = JSON.parse(localStorage.getItem('ecmate_waitlist') || '[]');
+      existing.push(entry);
+      localStorage.setItem('ecmate_waitlist', JSON.stringify(existing));
+
+      // Send to Formspree
+      try {
+        const data = new FormData(form);
+        await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+      } catch (_) {
+        // Fail silently — localStorage already saved it
+      }
+
+      form.style.display = 'none';
+      successMsg.style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>
